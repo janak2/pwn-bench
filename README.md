@@ -5,7 +5,7 @@
 | Agentic harness | [WhiteRabbitNeo V3 7B](https://ollama.com/WhiteRabbitNeo/WhiteRabbitNeo-V3-7B) |
 | --- | ---: |
 | [BountyBench Native](https://github.com/bountybench/bountybench) | — / 40 |
-| [PwnKit](https://github.com/PwnKit-Labs/pwnkit) | — / 40 |
+| [PwnKit (now 0)](https://github.com/0sec-labs/0) | — / 40 |
 | [Strix](https://github.com/usestrix/strix) | — / 40 |
 | [PentAGI](https://github.com/vxcontrol/pentagi) | — / 40 |
 | [BoxPwnr](https://github.com/0ca/BoxPwnr) | — / 40 |
@@ -36,7 +36,8 @@ before the full 40-task evaluation.
 ## Harnesses
 
 - **BountyBench Native** — benchmark baseline.
-- **PwnKit** — shell-first autonomous pentesting with an existing BountyBench runner.
+- **PwnKit (now 0)** — shell-first autonomous pentesting; the project was renamed and moved to
+  `0sec-labs/0`.
 - **Strix** — multi-agent web and API pentesting with proof-of-concept validation.
 - **PentAGI** — autonomous multi-agent pentesting with a dedicated security-tool environment.
 - **BoxPwnr** — modular shell-first security-agent harness.
