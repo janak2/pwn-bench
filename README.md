@@ -2,7 +2,7 @@
 
 ## BountyBench Exploit matrix
 
-| Agentic harness | [WhiteRabbitNeo V3 7B](https://huggingface.co/WhiteRabbitNeo/WhiteRabbitNeo-V3-7B) |
+| Agentic harness | [WhiteRabbitNeo V3 7B](https://ollama.com/WhiteRabbitNeo/WhiteRabbitNeo-V3-7B) |
 | --- | ---: |
 | [BountyBench Native](https://github.com/bountybench/bountybench) | — / 40 |
 | [PwnKit](https://github.com/PwnKit-Labs/pwnkit) | — / 40 |
