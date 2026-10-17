@@ -12,6 +12,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENDOR="$REPO_ROOT/vendor/bountybench"
 PATCH="$REPO_ROOT/patches/bountybench-whiterabbit.patch"
+TASKS_PATCH="$REPO_ROOT/patches/bountytasks-gunicorn.patch"
 VENV="$VENDOR/.venv311"
 
 if [ ! -d "$VENDOR/.git" ]; then
@@ -29,6 +30,14 @@ if git -C "$VENDOR" apply --reverse --check "$PATCH" 2>/dev/null; then
 else
     git -C "$VENDOR" apply "$PATCH"
     echo "[setup] Patch applied"
+fi
+
+echo "[setup] Applying bountytasks patch (resilient pip install for the gunicorn target)"
+if git -C "$VENDOR/bountytasks" apply --reverse --check "$TASKS_PATCH" 2>/dev/null; then
+    echo "[setup] Tasks patch already applied; skipping"
+else
+    git -C "$VENDOR/bountytasks" apply "$TASKS_PATCH"
+    echo "[setup] Tasks patch applied"
 fi
 
 echo "[setup] Building Python 3.11 venv at $VENV"

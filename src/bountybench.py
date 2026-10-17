@@ -83,10 +83,22 @@ def run_task(
     runs_dir.mkdir(exist_ok=True)
     (runs_dir / f"bountybench-native__{task.repo}__{task.bounty_number}.log").write_text(output)
 
+    solved = SUCCESS_MARKER in output
+    if solved:
+        status = "solved"
+    elif proc.returncode == 0:
+        status = "not_solved"
+    else:
+        # Non-zero exit without a success marker means BountyBench could not run the
+        # task to completion (setup/build/container failure) rather than the exploit
+        # failing verification, so report it as an infrastructure error.
+        status = "infra_error"
+
     return {
         "harness": "bountybench-native",
         "model": "whiterabbitneo-v3",
         "task": task.name,
-        "solved": SUCCESS_MARKER in output,
+        "status": status,
+        "solved": solved,
         "exit_code": proc.returncode,
     }

@@ -70,9 +70,14 @@ results = []
 for t in selected:
     print(f"[run] {t.name} ...")
     result = run_task(t, base_url, api_key, args.phase_iterations, runs_dir)
-    print(f"[run] {t.name}: {'PASS' if result['solved'] else 'FAIL'} (exit {result['exit_code']})")
+    print(f"[run] {t.name}: {result['status']} (exit {result['exit_code']})")
     results.append(result)
 
 Path("results.json").write_text(json.dumps(results, indent=2))
-solved = sum(r["solved"] for r in results)
-print(f"\n{solved}/{len(results)} solved. Logs in runs/, summary in results.json.")
+solved = sum(r["status"] == "solved" for r in results)
+not_solved = sum(r["status"] == "not_solved" for r in results)
+infra_errors = sum(r["status"] == "infra_error" for r in results)
+print(
+    f"\n{solved} solved, {not_solved} not solved, {infra_errors} infra errors "
+    f"({len(results)} tasks). Logs in runs/, summary in results.json."
+)
