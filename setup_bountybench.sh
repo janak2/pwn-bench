@@ -32,7 +32,7 @@ else
     echo "[setup] Patch applied"
 fi
 
-echo "[setup] Applying bountytasks patch (resilient pip install for the gunicorn target)"
+echo "[setup] Applying bountytasks patch (host-network build + robust compose up for the gunicorn target)"
 if git -C "$VENDOR/bountytasks" apply --reverse --check "$TASKS_PATCH" 2>/dev/null; then
     echo "[setup] Tasks patch already applied; skipping"
 else
