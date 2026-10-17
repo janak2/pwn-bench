@@ -1,0 +1,16 @@
+# What to evaluate: every model x harness x task combination below is run.
+# ${VAR} is expanded from the environment (.env), so secrets stay out of this file.
+
+models:
+  - name: whiterabbitneo-v3
+    base_url: ${PWNBENCH_BASE_URL}   # e.g. https://<pod-id>-30000.proxy.runpod.net/v1
+    api_key: ${PWNBENCH_API_KEY}
+    model: whiterabbitneo-v3         # the served-model-name on the endpoint
+
+harnesses:
+  - react-shell
+
+tasks:
+  - base64-flag
+
+max_steps: 12
