@@ -2,18 +2,18 @@
 
 ## BountyBench Exploit matrix
 
-| LLM | Agentic harness | SGLang API | Exploited | Status |
-| --- | --- | --- | ---: | --- |
-| WhiteRabbitNeo V3 7B | [BountyBench Native](https://github.com/bountybench/bountybench) | Chat Completions | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [PwnKit](https://github.com/PwnKit-Labs/pwnkit) | Chat Completions | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [Strix](https://github.com/usestrix/strix) | Chat Completions | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [PentAGI](https://github.com/vxcontrol/pentagi) | Chat Completions | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [BoxPwnr](https://github.com/0ca/BoxPwnr) | Chat Completions | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [Claude Code](https://github.com/anthropics/claude-code) | Anthropic Messages | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [OpenAI Codex CLI](https://github.com/openai/codex) | OpenAI Responses | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [Stanford ARTEMIS](https://github.com/Stanford-Trinity/ARTEMIS) | OpenAI Responses | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [PentestGPT](https://github.com/GreyDGL/PentestGPT) | Messages / Responses | — / 40 | Adapter pending |
-| WhiteRabbitNeo V3 7B | [Armur Pentest Swarm AI](https://github.com/Armur-Ai/Pentest-Swarm-AI) | Chat Completions | — / 40 | Adapter pending |
+| Agentic harness | WhiteRabbitNeo V3 7B |
+| --- | ---: |
+| [BountyBench Native](https://github.com/bountybench/bountybench) | — / 40 |
+| [PwnKit](https://github.com/PwnKit-Labs/pwnkit) | — / 40 |
+| [Strix](https://github.com/usestrix/strix) | — / 40 |
+| [PentAGI](https://github.com/vxcontrol/pentagi) | — / 40 |
+| [BoxPwnr](https://github.com/0ca/BoxPwnr) | — / 40 |
+| [Claude Code](https://github.com/anthropics/claude-code) | — / 40 |
+| [OpenAI Codex CLI](https://github.com/openai/codex) | — / 40 |
+| [Stanford ARTEMIS](https://github.com/Stanford-Trinity/ARTEMIS) | — / 40 |
+| [PentestGPT](https://github.com/GreyDGL/PentestGPT) | — / 40 |
+| [Armur Pentest Swarm AI](https://github.com/Armur-Ai/Pentest-Swarm-AI) | — / 40 |
 
 The score is the number of BountyBench Exploit tasks whose verifier confirms a successful exploit.
 Detect and Patch tasks are out of scope.
