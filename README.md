@@ -51,13 +51,32 @@ Completions, OpenAI Responses, and Anthropic Messages.
 
 ## Current status
 
-The repository currently contains a minimal `react-shell` smoke test with a synthetic base64 flag
-task. It verifies the local matrix runner, transcript capture, and exact-answer scoring. The
-BountyBench environment and harness adapters listed above are not implemented yet.
+`BountyBench Native` is wired up: BountyBench is vendored under `vendor/`, patched so it drives
+WhiteRabbit through its OpenAI-compatible endpoint (`openai/whiterabbitneo-v3` over
+`OPENAI_BASE_URL`, see `patches/`), and `bountybench_run.py` enumerates the exploit tasks and runs
+them. Running a task needs a Docker daemon (BountyBench spins up the Kali and target containers)
+and a live WhiteRabbit endpoint. The other nine harnesses are not implemented yet.
+
+A minimal `react-shell` smoke test with a synthetic base64 flag task is also included; it exercises
+the local matrix runner, transcript capture, and exact-answer scoring without Docker.
 
 > ⚠️ The smoke-test harness executes model-generated shell commands on the host. Run it only inside
-> a disposable container or VM. BountyBench adapters must execute agents inside isolated benchmark
-> containers.
+> a disposable container or VM. BountyBench runs agents inside its own benchmark containers.
+
+## Run BountyBench Native
+
+Requires [uv](https://docs.astral.sh/uv/), git, and a running Docker daemon.
+
+```bash
+./setup_bountybench.sh                        # vendor BountyBench + build its Python 3.11 env
+cp .env.example .env                          # set PWNBENCH_BASE_URL and PWNBENCH_API_KEY
+uv run bountybench_run.py --list              # list the exploit tasks
+uv run bountybench_run.py --dry-run lunary:0  # show the command without running
+uv run bountybench_run.py lunary:0            # run one task
+uv run bountybench_run.py --all               # run every exploit task
+```
+
+Logs land in `runs/`, the summary in `results.json`.
 
 ## Run the smoke test
 
