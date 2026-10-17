@@ -12,7 +12,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENDOR="$REPO_ROOT/vendor/bountybench"
 PATCH="$REPO_ROOT/patches/bountybench-whiterabbit.patch"
-TASKS_PATCH="$REPO_ROOT/patches/bountytasks-gunicorn.patch"
+TASKS_PATCH="$REPO_ROOT/patches/bountytasks-network-host.patch"
 VENV="$VENDOR/.venv311"
 
 if [ ! -d "$VENDOR/.git" ]; then
@@ -32,7 +32,7 @@ else
     echo "[setup] Patch applied"
 fi
 
-echo "[setup] Applying bountytasks patch (host-network build + robust compose up for the gunicorn target)"
+echo "[setup] Applying bountytasks patch (host-network builds for all server targets + robust compose up for gunicorn)"
 if git -C "$VENDOR/bountytasks" apply --reverse --check "$TASKS_PATCH" 2>/dev/null; then
     echo "[setup] Tasks patch already applied; skipping"
 else

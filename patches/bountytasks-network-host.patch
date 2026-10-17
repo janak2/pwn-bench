@@ -1,0 +1,299 @@
+diff --git a/InvokeAI/docker-compose.yml b/InvokeAI/docker-compose.yml
+index 58c7d763..0fbba54b 100644
+--- a/InvokeAI/docker-compose.yml
++++ b/InvokeAI/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: invokeai
+     build:
++      network: host
+       context: ./
+       dockerfile: Dockerfile
+     ports:
+diff --git a/LibreChat/docker-compose.yml b/LibreChat/docker-compose.yml
+index 531d2234..1a76f41a 100644
+--- a/LibreChat/docker-compose.yml
++++ b/LibreChat/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   api:
+     container_name: librechat
+     build:
++      network: host
+       context: ./
+       dockerfile: Dockerfile
+     ports:
+diff --git a/agentscope/docker-compose.yml b/agentscope/docker-compose.yml
+index 3a2dfcca..28285693 100644
+--- a/agentscope/docker-compose.yml
++++ b/agentscope/docker-compose.yml
+@@ -1,6 +1,7 @@
+ services:
+   victim:
+     build:
++      network: host
+       context: ./
+       dockerfile: ./Dockerfile
+       target: victim
+diff --git a/bentoml/bounties/bounty_0/setup_files/docker-compose.yml b/bentoml/bounties/bounty_0/setup_files/docker-compose.yml
+index a2912731..1e6b6773 100644
+--- a/bentoml/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/bentoml/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: bentoml-host
+     build: 
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_0/setup_files/Dockerfile
+     ports:
+diff --git a/bentoml/bounties/bounty_1/setup_files/docker-compose.yml b/bentoml/bounties/bounty_1/setup_files/docker-compose.yml
+index f6e2f002..ff3a9caf 100644
+--- a/bentoml/bounties/bounty_1/setup_files/docker-compose.yml
++++ b/bentoml/bounties/bounty_1/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   bentoml_service:
+     container_name: bentoml-host
+     build: 
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_1/setup_files/Dockerfile
+     ports:
+@@ -22,6 +23,7 @@ services:
+   flask_service:
+     container_name: server-host
+     build: 
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_1/setup_files/server/Dockerfile
+     ports:
+diff --git a/composio/docker-compose.yml b/composio/docker-compose.yml
+index 1f97e182..4722c61d 100644
+--- a/composio/docker-compose.yml
++++ b/composio/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: composio-server
+     build:
++      network: host
+       context: .
+       dockerfile: ./Dockerfile
+     ports:
+diff --git a/django/bounties/bounty_0/setup_files/docker-compose.yml b/django/bounties/bounty_0/setup_files/docker-compose.yml
+index e1e7acf0..2436fe08 100644
+--- a/django/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/django/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: django-app
+     build:
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_0/setup_files/Dockerfile
+     ports:
+diff --git a/fastapi/docker-compose.yml b/fastapi/docker-compose.yml
+index 3e7671e0..8314046a 100644
+--- a/fastapi/docker-compose.yml
++++ b/fastapi/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: fastapi-app
+     build: 
++      network: host
+       context: .
+       dockerfile: ./Dockerfile
+     ports:
+diff --git a/gpt_academic/bounties/bounty_0/setup_files/docker-compose.yml b/gpt_academic/bounties/bounty_0/setup_files/docker-compose.yml
+index 95d84d52..e1fb25ca 100644
+--- a/gpt_academic/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/gpt_academic/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   gpt-academic:
+     container_name: gpt-academic-app
+     build: 
++      network: host
+       context: ../../../  # Go up to access codebase
+       dockerfile: bounties/bounty_0/setup_files/Dockerfile
+     ports:
+diff --git a/gradio/docker-compose.yml b/gradio/docker-compose.yml
+index c2136409..592cd652 100644
+--- a/gradio/docker-compose.yml
++++ b/gradio/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: gradio
+     build: 
++      network: host
+       context: .
+       dockerfile: ./Dockerfile
+     ports:
+diff --git a/gunicorn/bounties/bounty_0/setup_files/docker-compose.yml b/gunicorn/bounties/bounty_0/setup_files/docker-compose.yml
+index 934da650..4408d303 100644
+--- a/gunicorn/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/gunicorn/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -4,6 +4,9 @@ services:
+     build: 
+       context: ../../../
+       dockerfile: ./bounties/bounty_0/setup_files/Dockerfile
++      # Build over host networking: the default NAT bridge blackholes large pip
++      # downloads (path-MTU/offload issue on this host's WiFi NIC).
++      network: host
+     networks:
+       - private_net
+     healthcheck:
+@@ -18,6 +21,7 @@ services:
+     build:
+       context: ./
+       dockerfile: Dockerfile.relay
++      network: host
+     ports:
+       - "9331:9331"
+     environment:
+diff --git a/gunicorn/bounties/bounty_0/setup_files/setup_bounty_env.sh b/gunicorn/bounties/bounty_0/setup_files/setup_bounty_env.sh
+index 7eec10c7..1ffafff9 100755
+--- a/gunicorn/bounties/bounty_0/setup_files/setup_bounty_env.sh
++++ b/gunicorn/bounties/bounty_0/setup_files/setup_bounty_env.sh
+@@ -13,4 +13,14 @@ pip install -e .
+ cd "$CURRENT_DIR"
+ 
+ echo "Starting Docker containers..."
+-docker compose up -d --force-recreate --build || { echo "Failed to start Docker containers"; exit 1; }
++# Clear any leftover state and retry: creating private_net occasionally races with
++# attaching the container ("network ... not found") on a clean run.
++docker compose down -v --remove-orphans 2>/dev/null || true
++up_ok=0
++for attempt in 1 2 3; do
++    if docker compose up -d --force-recreate --build; then up_ok=1; break; fi
++    echo "docker compose up attempt $attempt failed; cleaning up and retrying..."
++    docker compose down -v --remove-orphans 2>/dev/null || true
++    sleep 3
++done
++[ "$up_ok" = 1 ] || { echo "Failed to start Docker containers"; exit 1; }
+diff --git a/imaginairy/bounties/bounty_0/setup_files/docker-compose.yml b/imaginairy/bounties/bounty_0/setup_files/docker-compose.yml
+index ab6bad9e..157b24ea 100644
+--- a/imaginairy/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/imaginairy/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   aimg-server:
+     container_name: aimg-server
+     build:
++      network: host
+       context: ../../../
+       dockerfile: bounties/bounty_0/setup_files/Dockerfile
+     ports:
+diff --git a/lunary/docker-compose.yml b/lunary/docker-compose.yml
+index 4d8b0fa3..b488ed68 100644
+--- a/lunary/docker-compose.yml
++++ b/lunary/docker-compose.yml
+@@ -1,7 +1,9 @@
+ services:
+   postgres:
+     container_name: lunary-postgres
+-    build: ./initdb
++    build:
++      context: ./initdb
++      network: host
+     restart: always
+     networks:
+       - private_net
+@@ -20,6 +22,7 @@ services:
+   app:
+     container_name: lunary-app
+     build:
++      network: host
+       context: ./
+       dockerfile: Dockerfile
+     networks:
+diff --git a/mlflow/bounties/bounty_2/setup_files/docker-compose.yml b/mlflow/bounties/bounty_2/setup_files/docker-compose.yml
+index 2e7a7f7f..fc2b566d 100644
+--- a/mlflow/bounties/bounty_2/setup_files/docker-compose.yml
++++ b/mlflow/bounties/bounty_2/setup_files/docker-compose.yml
+@@ -1,6 +1,8 @@
+ services:
+   exploit_server:
+-    build: ./exploit_server
++    build:
++      context: ./exploit_server
++      network: host
+     container_name: exploit_server
+     networks:
+       - shared_net
+@@ -17,6 +19,7 @@ services:
+   
+   victim_server:
+     build:
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_2/setup_files/victim_server/Dockerfile
+     container_name: victim_server
+diff --git a/mlflow/docker-compose.yml b/mlflow/docker-compose.yml
+index 8d4226c1..013d900a 100644
+--- a/mlflow/docker-compose.yml
++++ b/mlflow/docker-compose.yml
+@@ -1,6 +1,7 @@
+ services:
+   mlflow:
+     build:
++      network: host
+       context: .
+       dockerfile: ./Dockerfile
+     container_name: mlflow
+diff --git a/neural-compressor/bounties/bounty_0/setup_files/docker-compose.yml b/neural-compressor/bounties/bounty_0/setup_files/docker-compose.yml
+index 3e78cd12..0044558e 100644
+--- a/neural-compressor/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/neural-compressor/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   neural_compressor:
+     container_name: neural-compressor
+     build: 
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_0/setup_files/Dockerfile
+     volumes:
+diff --git a/node/bounties/bounty_0/setup_files/docker-compose.yml b/node/bounties/bounty_0/setup_files/docker-compose.yml
+index 5f5e5baf..9295f685 100644
+--- a/node/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/node/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -3,6 +3,7 @@ services:
+     container_name: node-app
+     platform: linux/amd64
+     build:
++      network: host
+       context: ./
+       dockerfile: Dockerfile
+     networks:
+diff --git a/open-webui/bounties/bounty_0/setup_files/docker-compose.yml b/open-webui/bounties/bounty_0/setup_files/docker-compose.yml
+index 103890c5..e61e86cb 100755
+--- a/open-webui/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/open-webui/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   open-webui:
+     container_name: open-webui
+     build:
++      network: host
+       context: ../../../
+       dockerfile: ./bounties/bounty_0/setup_files/Dockerfile
+     ports:
+diff --git a/pytorch-lightning/docker-compose.yml b/pytorch-lightning/docker-compose.yml
+index 4ccda49f..1574bd53 100644
+--- a/pytorch-lightning/docker-compose.yml
++++ b/pytorch-lightning/docker-compose.yml
+@@ -2,6 +2,7 @@ services:
+   app:
+     container_name: lightning-app
+     build:
++      network: host
+       context: .
+       dockerfile: Dockerfile
+     ports:
+diff --git a/undici/bounties/bounty_0/setup_files/docker-compose.yml b/undici/bounties/bounty_0/setup_files/docker-compose.yml
+index e5d61943..d7ca0516 100644
+--- a/undici/bounties/bounty_0/setup_files/docker-compose.yml
++++ b/undici/bounties/bounty_0/setup_files/docker-compose.yml
+@@ -1,6 +1,7 @@
+ services:
+   undici-redirect-target:
+     build:
++      network: host
+       context: ../../..
+       dockerfile: bounties/bounty_0/setup_files/Dockerfile
+     container_name: undici-redirect-target
