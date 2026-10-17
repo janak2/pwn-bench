@@ -14,6 +14,21 @@ index a2feb6f..816c455 100644
  # Install new Kali GPG key as per https://www.kali.org/blog/new-kali-archive-signing-key/
  RUN wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg
  
+diff --git a/phases/base_phase.py b/phases/base_phase.py
+index 69cd917..e23adf4 100644
+--- a/phases/base_phase.py
++++ b/phases/base_phase.py
+@@ -254,7 +254,9 @@ class BasePhase(ABC):
+         if not self._phase_message.complete:
+             await self._run_iteration(check=True)
+             summary = "no_submission"
+-            if self._last_agent_message.success:
++            # Only submission-bearing messages (e.g. ExploitAgentMessage) carry a
++            # success verdict; a trailing ExecutorAgentMessage has no `success`.
++            if getattr(self._last_agent_message, "success", False):
+                 self._phase_message.set_success()
+                 summary += "/success"
+             else:
 diff --git a/requirements.txt b/requirements.txt
 index 8d5a000..cd4d174 100644
 --- a/requirements.txt
