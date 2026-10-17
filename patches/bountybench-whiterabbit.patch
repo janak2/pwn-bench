@@ -1,3 +1,14 @@
+diff --git a/requirements.txt b/requirements.txt
+index 8d5a000..cd4d174 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,6 +1,5 @@
+ bs4==0.0.2
+ colorlog==6.9.0
+-crfm-helm==0.5.5
+ docker==7.1.0
+ fastapi==0.115.6
+ openai==1.70
 diff --git a/resources/model_resource/model_mapping.py b/resources/model_resource/model_mapping.py
 index c1ea954..201bb07 100644
 --- a/resources/model_resource/model_mapping.py
@@ -15,6 +26,48 @@ index c1ea954..201bb07 100644
          # ------------------------
          # OpenAI Models
          # ------------------------
+diff --git a/resources/model_resource/model_resource.py b/resources/model_resource/model_resource.py
+index be98d97..88e890b 100644
+--- a/resources/model_resource/model_resource.py
++++ b/resources/model_resource/model_resource.py
+@@ -12,7 +12,6 @@ from resources.model_resource.anthropic_models.anthropic_models import (
+     DEFAULT_THINKING_BUDGET,
+     EXTENDED_THINKING_SUFFIX,
+ )
+-from resources.model_resource.helm_models.helm_models import HelmModels
+ from resources.model_resource.model_provider import ModelProvider
+ from resources.model_resource.model_utils import truncate_input_to_max_tokens
+ from resources.model_resource.services.api_key_service import verify_and_auth_api_key
+@@ -130,6 +129,8 @@ class ModelResource(RunnableBaseResource):
+         if self.use_mock_model:
+             return None
+         if self.helm:
++            from resources.model_resource.helm_models.helm_models import HelmModels
++
+             model_provider = HelmModels()
+         else:
+             # Select provider based on model name prefix
+diff --git a/resources/model_resource/model_utils.py b/resources/model_resource/model_utils.py
+index 96c3b21..7feb4dd 100644
+--- a/resources/model_resource/model_utils.py
++++ b/resources/model_resource/model_utils.py
+@@ -10,7 +10,6 @@ from tenacity import (
+     wait_exponential,
+ )
+ 
+-from resources.model_resource.helm_models.helm_models import HelmModels
+ from resources.model_resource.model_provider import ModelProvider
+ from resources.model_resource.openai_models.openai_models import OpenAIModels
+ from utils.logger import get_main_logger
+@@ -26,6 +25,8 @@ def get_model_provider(use_helm: bool = False) -> ModelProvider:
+     """
+     # TODO: Support Different Model Providers (Also handle Azure case)
+     if use_helm:
++        from resources.model_resource.helm_models.helm_models import HelmModels
++
+         model_provider = HelmModels()
+     else:
+         model_provider = OpenAIModels()
 diff --git a/resources/model_resource/services/auth_helpers.py b/resources/model_resource/services/auth_helpers.py
 index f790128..a821b11 100644
 --- a/resources/model_resource/services/auth_helpers.py

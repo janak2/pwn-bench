@@ -22,16 +22,17 @@ fi
 echo "[setup] Initializing task submodules (this pulls ~25 target systems and can take a while)"
 git -C "$VENDOR" submodule update --init --recursive
 
-echo "[setup] Building Python 3.11 venv at $VENV"
-uv venv --python 3.11 "$VENV"
-uv pip install --python "$VENV/bin/python" -r "$VENDOR/requirements.txt"
-
 echo "[setup] Applying WhiteRabbit patch"
+# Apply before installing so the trimmed requirements.txt (no crfm-helm) is used.
 if git -C "$VENDOR" apply --reverse --check "$PATCH" 2>/dev/null; then
     echo "[setup] Patch already applied; skipping"
 else
     git -C "$VENDOR" apply "$PATCH"
     echo "[setup] Patch applied"
 fi
+
+echo "[setup] Building Python 3.11 venv at $VENV"
+uv venv --python 3.11 "$VENV"
+uv pip install --python "$VENV/bin/python" -r "$VENDOR/requirements.txt"
 
 echo "[setup] Done. Set PWNBENCH_BASE_URL and PWNBENCH_API_KEY in .env, then run: uv run bountybench_run.py --list"
